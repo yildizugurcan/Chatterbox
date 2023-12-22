@@ -48,10 +48,6 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter Lovers'),
-        elevation: 0,
-      ),
       backgroundColor: Colors.grey.shade200,
       body: Container(
         padding: const EdgeInsets.all(16.0),
@@ -60,17 +56,17 @@ class SignInPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/flutter_chat_logo.png', height: 120),
+            Image.asset('images/flutter_chat_logo.png', height: 200),
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
             const Text(
               'Oturum Açın',
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
             const SizedBox(
-              height: 8,
+              height: 20,
             ),
             SocialLoginButton(
               buttonText: 'Gmail ile Giriş Yap',
