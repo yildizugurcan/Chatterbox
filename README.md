@@ -4,7 +4,8 @@
 
  - Kullanıcıların Gmail veya kendi mailleriyle kayıt olup giriş yapabileceği bir chat programı.
  - Profil fotoğrafı ve kendi kullanıcı adlarını değiştirebilirsiniz.
- - Dilediğiniz kişiyle karşılıklı sohbet edebilirsiniz.
+ - Kullanıcılarda aynı username iki kez görüntülenemez. Eğer o isimde birisi varsa uygulama değiştirmenizi ister.
+ - Dilediğiniz kişiyle karşılıklı doyasıya sohbet edebilirsiniz.
 
    
 
