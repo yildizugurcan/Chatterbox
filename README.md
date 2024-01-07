@@ -1,16 +1,17 @@
-# flutter_lovers
+# Flutter Lovers
 
-A new Flutter project.
+## Flutter Chat Program
 
-## Getting Started
+ - Kullanıcıların Gmail veya kendi mailleriyle kayıt olup giriş yapabileceği bir chat programı.
+ - Profil fotoğrafı ve kendi kullanıcı adlarını değiştirebilirsiniz.
+ - Dilediğiniz kişiyle karşılıklı sohbet edebilirsiniz.
 
-This project is a starting point for a Flutter application.
+   
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![flutter_lovers-1](https://github.com/yildizugurcan/flutter_lovers/assets/108520734/3143dab0-635f-44cc-bbf8-b64f041aad33)   ![flutter_lovers-2](https://github.com/yildizugurcan/flutter_lovers/assets/108520734/29432494-6b90-4493-a7dd-238c5094aa96)
+
+
+
+
