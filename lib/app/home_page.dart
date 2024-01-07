@@ -5,6 +5,8 @@ import 'package:flutter_lovers/app/my_custom_bottom_navi.dart';
 import 'package:flutter_lovers/app/profil.dart';
 import 'package:flutter_lovers/app/tab_items.dart';
 import 'package:flutter_lovers/models/user.dart';
+import 'package:flutter_lovers/viewmodel/all_users_view_model.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   final User1? user;
@@ -29,7 +31,10 @@ class _HomePageState extends State<HomePage> {
 
   Map<TabItem, Widget> tumSayfalar() {
     return {
-      TabItem.Kullanicilar: const KullanicilarPage(),
+      TabItem.Kullanicilar: ChangeNotifierProvider(
+        create: (context) => AllUserViewModel(),
+        child: const KullanicilarPage(),
+      ),
       TabItem.Konusmalarim: const KonusmalarimPage(),
       TabItem.Profil: const ProfilPage(),
     };

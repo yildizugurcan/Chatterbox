@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lovers/app/sohbet_page.dart';
 import 'package:flutter_lovers/models/konusma.dart';
 import 'package:flutter_lovers/models/user.dart';
+import 'package:flutter_lovers/viewmodel/chat_view_model.dart';
 import 'package:flutter_lovers/viewmodel/user_model.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +26,9 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
         body: FutureBuilder<List<Konusma>?>(
             future: _userModel.getAllConversations(_userModel.user!.userID!),
             builder: ((context, konusmaListesi) {
-              if (!konusmaListesi.hasData) {
+              if (!konusmaListesi.hasData || konusmaListesi.data == null) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("Veri yok veya null."),
                 );
               } else {
                 var tumKonusmalar = konusmaListesi.data;
@@ -44,12 +45,14 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                           onTap: () {
                             Navigator.of(context, rootNavigator: true).push(
                               MaterialPageRoute(
-                                builder: (context) => SohbetPage(
-                                  currentUser: _userModel.user,
-                                  sohbetEdilenUser: User1.idveResim(
-                                      userID: oankiKonusma.kimle_konusuyor,
-                                      profilURL:
-                                          oankiKonusma.konusulanUserProfilURL),
+                                builder: (context) => ChangeNotifierProvider(
+                                  create: (context) => ChatViewModel(
+                                      currentUser: _userModel.user,
+                                      sohbetEdilenUser: User1.idveResim(
+                                          userID: oankiKonusma.kimle_konusuyor,
+                                          profilURL: oankiKonusma
+                                              .konusulanUserProfilURL)),
+                                  child: SohbetPage(),
                                 ),
                               ),
                             );
@@ -71,8 +74,8 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
                   return RefreshIndicator(
                     onRefresh: _konusmalarimListesiniYenile,
                     child: SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      child: Container(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: SizedBox(
                         height: MediaQuery.of(context).size.height - 150,
                         child: Center(
                             child: Column(
@@ -108,7 +111,6 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
         .get();
 
     for (var konusma in konusmalarim.docs) {
-      print('KONUSMA : ' + konusma.data().toString());
     }
   }
 

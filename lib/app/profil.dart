@@ -58,7 +58,7 @@ class _ProfilPageState extends State<ProfilPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Profil'),
+          title: const Text('Profil'),
           actions: [
             TextButton(
                 onPressed: () => _cikisIcinOnayIste(context),

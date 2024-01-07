@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             color: Colors.purple,
           ),
         ),
-        home: LandingPage(),
+        home: const LandingPage(),
       ),
     );
   }
