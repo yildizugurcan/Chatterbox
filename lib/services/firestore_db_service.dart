@@ -18,7 +18,6 @@ class FireStoreDBService implements DBBase {
         _okunanUser.data() as Map<String, dynamic>?;
 
     if (_okunanUserBilgileriMap != null) {
-      // User1 _okunanUserBilgileriNesne = User1.fromMap(_okunanUserBilgileriMap);
       return true;
     } else {
       return false;
@@ -72,23 +71,6 @@ class FireStoreDBService implements DBBase {
   }
 
   @override
-  Future<List<User1>?> getAllUser() async {
-    QuerySnapshot querySnapShot = await _firebaseDB.collection('users').get();
-
-    List<User1> tumKullaniciListesi = [];
-    for (DocumentSnapshot tekUser in querySnapShot.docs) {
-      Map<String, dynamic>? userData = tekUser.data() as Map<String, dynamic>?;
-
-      if (userData != null) {
-        User1 _tekUser = User1.fromMap(userData);
-        tumKullaniciListesi.add(_tekUser);
-      }
-    }
-
-    return tumKullaniciListesi;
-  }
-
-  @override
   Future<List<Konusma>> getAllConversations(String userID) async {
     QuerySnapshot querySnapshot = await _firebaseDB
         .collection('konusmalar')
@@ -116,6 +98,7 @@ class FireStoreDBService implements DBBase {
         .doc(currentUserID + '--' + sohbetEdilenUserID)
         .collection('mesajlar')
         .orderBy('date', descending: true)
+        .limit(1)
         .snapshots();
     return snapShot.map((mesajListesi) =>
         mesajListesi.docs.map((mesaj) => Mesaj.fromMap(mesaj.data())).toList());
@@ -180,5 +163,70 @@ class FireStoreDBService implements DBBase {
 
     Timestamp okunanTarih = okunanMap['saat'];
     return okunanTarih.toDate();
+  }
+
+  @override
+  Future<List<User1>> getUserwithPagination(
+      User1 enSonGetirilenUser, int getirilecekElemanSayisi) async {
+    QuerySnapshot _querySnapshot;
+    List<User1> _tumKullanicilar = [];
+
+    if (enSonGetirilenUser == null) {
+      _querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .orderBy('userName')
+          .limit(getirilecekElemanSayisi)
+          .get();
+    } else {
+      _querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .orderBy('userName')
+          .startAfter([enSonGetirilenUser!.userName])
+          .limit(getirilecekElemanSayisi)
+          .get();
+
+      await Future.delayed(Duration(seconds: 2));
+    }
+    for (DocumentSnapshot snap in _querySnapshot.docs) {
+      User1 _tekUser = User1.fromMap(snap.data() as Map<String, dynamic>);
+      _tumKullanicilar!.add(_tekUser);
+    }
+    return _tumKullanicilar;
+  }
+
+  @override
+  Future<List<Mesaj>> getMessageWithPagination(
+      String currentUserID,
+      String sohbetEdilenUserID,
+      Mesaj? enSonGetirilenMesaj,
+      int getirilecekElemanSayisi) async {
+    QuerySnapshot _querySnapshot;
+    List<Mesaj> _tumMesajlar = [];
+
+    if (enSonGetirilenMesaj == null) {
+      _querySnapshot = await FirebaseFirestore.instance
+          .collection('konusmalar')
+          .doc(currentUserID + '--' + sohbetEdilenUserID)
+          .collection('mesajlar')
+          .orderBy('date', descending: true)
+          .limit(getirilecekElemanSayisi)
+          .get();
+    } else {
+      _querySnapshot = await FirebaseFirestore.instance
+          .collection('konusmalar')
+          .doc(currentUserID + '--' + sohbetEdilenUserID)
+          .collection('mesajlar')
+          .orderBy('date', descending: true)
+          .startAfter([enSonGetirilenMesaj.date])
+          .limit(getirilecekElemanSayisi)
+          .get();
+
+      await Future.delayed(const Duration(seconds: 1));
+    }
+    for (DocumentSnapshot snap in _querySnapshot.docs) {
+      Mesaj _tekMesaj = Mesaj.fromMap(snap.data() as Map<String, dynamic>);
+      _tumMesajlar.add(_tekMesaj);
+    }
+    return _tumMesajlar;
   }
 }

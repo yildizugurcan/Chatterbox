@@ -83,18 +83,7 @@ class UserModel with ChangeNotifier implements AuthBase {
     }
   }
 
-  @override
-  Future<User1?> signInWithFacebook() async {
-    try {
-      state = ViewState.Busy;
-      _user = await _userRepository.signInWithFacebook();
-      return _user;
-    } catch (e) {
-      return null;
-    } finally {
-      state = ViewState.Idle;
-    }
-  }
+
 
   @override
   Future<User1?> createUserWithEmailandPassword(
@@ -165,21 +154,18 @@ class UserModel with ChangeNotifier implements AuthBase {
     return indirmeLinki;
   }
 
-  Future<List<User1>?> getAllUsers() async {
-    var tumKullaniciListesi = await _userRepository.getAllUser();
-    return tumKullaniciListesi;
-  }
-
   Stream<List<Mesaj>> getMessages(
       String currentUserID, String sohbetEdilenUserID) {
     return _userRepository.getMessages(currentUserID, sohbetEdilenUserID);
   }
 
-  Future<bool> saveMessage(Mesaj kaydedilecekMesaj) async {
-    return await _userRepository.saveMessage(kaydedilecekMesaj);
-  }
-
   Future<List<Konusma>> getAllConversations(String userID) async {
     return await _userRepository.getAllConversations(userID);
+  }
+
+  Future<List<User1>> getUserwithPagination(
+      User1 enSonGetirilenUser, int getirilecekElemanSayisi) async {
+    return await _userRepository.getUserwithPagination(
+        enSonGetirilenUser, getirilecekElemanSayisi);
   }
 }

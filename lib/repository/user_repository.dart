@@ -67,20 +67,6 @@ class UserRepository implements AuthBase {
   }
 
   @override
-  Future<User1?> signInWithFacebook() async {
-    if (appMode == AppMode.DEBUG) {
-      return await _fakeAuthenticationService.signInWithFacebook();
-    } else {
-      User1? _user = await _firebaseAuthService.signInWithFacebook();
-      bool _sonuc = await _fireStoreDBService.saveUser(_user!);
-      if (_sonuc) {
-        return await _fireStoreDBService.readUser(_user.userID!);
-      } else
-        return null;
-    }
-  }
-
-  @override
   Future<User1?> createUserWithEmailandPassword(
       String email, String sifre) async {
     if (appMode == AppMode.DEBUG) {
@@ -129,16 +115,6 @@ class UserRepository implements AuthBase {
       await _fireStoreDBService.updateProfilFoto(userID, profilFotoURL);
 
       return profilFotoURL;
-    }
-  }
-
-  Future<List<User1>?> getAllUser() async {
-    if (appMode == AppMode.DEBUG) {
-      return [];
-    } else {
-      tumKullaniciListesi = await _fireStoreDBService.getAllUser();
-
-      return tumKullaniciListesi;
     }
   }
 
@@ -194,5 +170,37 @@ class UserRepository implements AuthBase {
     }
 
     return null;
+  }
+
+  Future<List<User1>> getUserwithPagination(
+      User1? enSonGetirilenUser, int getirilecekElemanSayisi) async {
+    try {
+      enSonGetirilenUser ??= User1.nullUser;
+
+      List<User1> _userList = await _fireStoreDBService.getUserwithPagination(
+          enSonGetirilenUser!, getirilecekElemanSayisi);
+      tumKullaniciListesi!.addAll(_userList);
+
+      return _userList;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<List<Mesaj>> getMessageWithPagination(
+      String currentUserID,
+      String sohbetEdilenUserID,
+      Mesaj? enSonGetirilenMesaj,
+      int getirilecekElemanSayisi) async {
+    try {
+      return await _fireStoreDBService.getMessageWithPagination(
+          currentUserID,
+          sohbetEdilenUserID,
+          enSonGetirilenMesaj,
+          getirilecekElemanSayisi);
+    } catch (e) {
+
+      return [];
+    }
   }
 }

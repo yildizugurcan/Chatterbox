@@ -12,6 +12,8 @@ class User1 {
 
   User1({required this.userID, required this.email});
 
+  static User1? nullUser = User1(userID: null, email: null);
+
   Map<String, dynamic> toMap() {
     return {
       'userID': userID,
