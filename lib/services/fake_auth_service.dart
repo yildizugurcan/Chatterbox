@@ -29,13 +29,7 @@ class FakeAuthenticationService implements AuthBase {
             User1(userID: 'google_user_id_12345', email: 'fakeuser@fake.com'));
   }
 
-  @override
-  Future<User1?> signInWithFacebook() async {
-    return await Future.delayed(
-        Duration(seconds: 2),
-        () => User1(
-            userID: 'facebook_user_id_12345', email: 'fakeuser@fake.com'));
-  }
+
 
   @override
   Future<User1?> createUserWithEmailandPassword(

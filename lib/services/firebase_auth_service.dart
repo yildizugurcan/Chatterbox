@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_lovers/models/user.dart';
 import 'package:flutter_lovers/services/auth_base.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -46,9 +45,6 @@ class FirebaseAuthService implements AuthBase {
       final _googleSignIn = GoogleSignIn();
       await _googleSignIn.signOut();
 
-      final _facebookLogin = FacebookAuth.instance;
-      await _facebookLogin.logOut();
-
       await _firebaseAuth.signOut();
       return true;
     } catch (e) {
@@ -78,39 +74,7 @@ class FirebaseAuthService implements AuthBase {
     }
   }
 
-  @override
-  Future<User1?> signInWithFacebook() async {
-    try {
-      final _facebookLogin = FacebookAuth.instance;
-
-      LoginResult _faceResult =
-          await _facebookLogin.login(permissions: ['public_profile', 'email']);
-
-      switch (_faceResult.status) {
-        case LoginStatus.success:
-          if (_faceResult.accessToken != null) {
-            UserCredential _firebaseResult = await _firebaseAuth
-                .signInWithCredential(FacebookAuthProvider.credential(
-                    _faceResult.accessToken!.token));
-            User _user = _firebaseResult.user!;
-            return _userFromFirebase(_user);
-          }
-          break;
-
-        case LoginStatus.cancelled:
-          break;
-        case LoginStatus.failed:
-          break;
-        case LoginStatus.operationInProgress:
-        default:
-          break;
-      }
-      return null;
-    } catch (e) {
-      return null;
-    }
-  }
-
+  
   @override
   Future<User1?> createUserWithEmailandPassword(
       String email, String sifre) async {

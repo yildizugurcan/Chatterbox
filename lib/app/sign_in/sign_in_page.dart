@@ -7,15 +7,6 @@ import 'package:flutter_lovers/viewmodel/user_model.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
-  void _misafirGirisi(BuildContext context) async {
-    final _userModel = Provider.of<UserModel>(context, listen: false);
-
-    await Firebase.initializeApp();
-    User1 _user = (await _userModel.signInAnonymously())!;
-
-    print('Oturum Açan user id : ${_user.userID.toString()}');
-  }
-
   void _googleIleGiris(BuildContext context) async {
     final _userModel = Provider.of<UserModel>(context, listen: false);
 
@@ -33,16 +24,6 @@ class SignInPage extends StatelessWidget {
         builder: (context) => const EmailveSifreLoginPage(),
       ),
     );
-  }
-
-  void _facebookIleGiris(BuildContext context) async {
-    final _userModel = Provider.of<UserModel>(context, listen: false);
-
-    await Firebase.initializeApp();
-    User1? _user = await _userModel.signInWithFacebook();
-    if (_user != null) {
-      print('Oturum Açan user id : ${_user.userID.toString()}');
-    }
   }
 
   @override
@@ -76,12 +57,6 @@ class SignInPage extends StatelessWidget {
               onPressed: () => _googleIleGiris(context),
             ),
             SocialLoginButton(
-              buttonText: 'Facebook ile Giriş Yap',
-              buttonIcon: Image.asset('images/facebook-logo.png'),
-              buttonColor: const Color(0xFF334D92),
-              onPressed: () => _facebookIleGiris(context),
-            ),
-            SocialLoginButton(
               buttonText: 'Email ve Şifre ile Giriş Yap',
               buttonIcon: const Icon(
                 Icons.email,
@@ -89,16 +64,6 @@ class SignInPage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () => _emailVeSifreGiris(context),
-            ),
-            SocialLoginButton(
-              buttonText: 'Misafir Girişi',
-              onPressed: () => _misafirGirisi(context),
-              buttonIcon: const Icon(
-                Icons.supervised_user_circle,
-                size: 32,
-                color: Colors.white,
-              ),
-              buttonColor: Colors.green,
             ),
           ],
         ),
