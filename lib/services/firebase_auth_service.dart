@@ -74,7 +74,7 @@ class FirebaseAuthService implements AuthBase {
     }
   }
 
-  
+
   @override
   Future<User1?> createUserWithEmailandPassword(
       String email, String sifre) async {

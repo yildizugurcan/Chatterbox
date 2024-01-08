@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "831491850534",
-    "project_id": "flutter-lovers-a61f4",
-    "storage_bucket": "flutter-lovers-a61f4.appspot.com"
+    "project_number": "242740362308",
+    "project_id": "flutter-lovers-74bdf",
+    "storage_bucket": "flutter-lovers-74bdf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:831491850534:android:04f75289ac344a53c181e7",
+        "mobilesdk_app_id": "1:242740362308:android:44823cace64e2c4bdf5011",
         "android_client_info": {
           "package_name": "com.example.flutter_lovers"
         }
       },
       "oauth_client": [
         {
-          "client_id": "831491850534-5hf1cg19pg97a7nadp2erahun0c6rsp9.apps.googleusercontent.com",
+          "client_id": "242740362308-28pp9qlfesf82sr72rg4cfub46upq9j4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.flutter_lovers",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "831491850534-2dfd3peu4c23v6irobi65a0p5e122m74.apps.googleusercontent.com",
+          "client_id": "242740362308-v7db4emnesdkc9ikp267ov8t38mfg0u5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDjtBzowijAL8GhLNZ8yXyIV1GvirbTq2U"
+          "current_key": "AIzaSyCzy3ZmPnCKc12WQGCBTwuG3QTwBe163fo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "831491850534-2dfd3peu4c23v6irobi65a0p5e122m74.apps.googleusercontent.com",
+              "client_id": "242740362308-v7db4emnesdkc9ikp267ov8t38mfg0u5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -37,14 +37,17 @@ class SignInPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('images/flutter_chat_logo.png', height: 200),
+            Image.asset('images/chatterbox_logo.png', height: 100),
             const SizedBox(
               height: 20,
             ),
             const Text(
               'Oturum Açın',
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.deepPurple),
             ),
             const SizedBox(
               height: 20,

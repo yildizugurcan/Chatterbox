@@ -193,13 +193,9 @@ class UserRepository implements AuthBase {
       Mesaj? enSonGetirilenMesaj,
       int getirilecekElemanSayisi) async {
     try {
-      return await _fireStoreDBService.getMessageWithPagination(
-          currentUserID,
-          sohbetEdilenUserID,
-          enSonGetirilenMesaj,
-          getirilecekElemanSayisi);
+      return await _fireStoreDBService.getMessageWithPagination(currentUserID,
+          sohbetEdilenUserID, enSonGetirilenMesaj, getirilecekElemanSayisi);
     } catch (e) {
-
       return [];
     }
   }

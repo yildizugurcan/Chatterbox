@@ -102,7 +102,7 @@ class _SohbetPageState extends State<SohbetPage> {
               elevation: 0,
               backgroundColor: Colors.purple,
               child: const Icon(
-                Icons.navigation,
+                Icons.send_rounded,
                 size: 35,
                 color: Colors.white,
               ),

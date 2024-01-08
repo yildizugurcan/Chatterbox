@@ -109,7 +109,7 @@ class _KonusmalarimPageState extends State<KonusmalarimPage> {
         .where('konusma_sahibi', isEqualTo: _userModel.user!.userID)
         .orderBy('olusturulma_tarihi', descending: true)
         .get();
-
+   
     for (var konusma in konusmalarim.docs) {
     }
   }
