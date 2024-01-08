@@ -1,4 +1,4 @@
-# Flutter Lovers
+# Chatterbox
 
 ## Flutter Chat Program
 
