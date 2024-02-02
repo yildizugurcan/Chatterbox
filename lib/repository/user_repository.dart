@@ -4,6 +4,7 @@ import 'package:flutter_lovers/models/konusma.dart';
 import 'package:flutter_lovers/models/mesaj.dart';
 import 'package:flutter_lovers/models/user.dart';
 import 'package:flutter_lovers/services/auth_base.dart';
+import 'package:flutter_lovers/services/bildirim_g%C3%B6nderme_servis.dart';
 import 'package:flutter_lovers/services/fake_auth_service.dart';
 import 'package:flutter_lovers/services/firebase_auth_service.dart';
 import 'package:flutter_lovers/services/firebase_storage_service.dart';
@@ -18,10 +19,14 @@ class UserRepository implements AuthBase {
   FireStoreDBService _fireStoreDBService = locator<FireStoreDBService>();
   FirebaseStorageService _firebaseStorageService =
       locator<FirebaseStorageService>();
+  BildirimGondermeServis _bildirimGondermeServis =
+      locator<BildirimGondermeServis>();
 
   AppMode appMode = AppMode.RELEASE; // DEBUG = fake AUTH    RELASE = FİREBASE
 
   List<User1>? tumKullaniciListesi = [];
+
+  Map<String, String> kullaniciToken = Map<String, String>();
 
   @override
   Future<User1?> currentUser() async {
@@ -29,7 +34,10 @@ class UserRepository implements AuthBase {
       return await _fakeAuthenticationService.currentUser();
     } else {
       User1? _user = await _firebaseAuthService.currentUser();
-      return await _fireStoreDBService.readUser(_user!.userID!);
+      if (_user != null)
+        return await _fireStoreDBService.readUser(_user.userID!);
+      else
+        return null;
     }
   }
 
@@ -58,9 +66,14 @@ class UserRepository implements AuthBase {
     } else {
       User1? _user = await _firebaseAuthService.signInWithGoogle();
 
-      bool _sonuc = await _fireStoreDBService.saveUser(_user!);
-      if (_sonuc) {
-        return await _fireStoreDBService.readUser(_user.userID!);
+      if (_user != null) {
+        bool _sonuc = await _fireStoreDBService.saveUser(_user);
+        if (_sonuc) {
+          return await _fireStoreDBService.readUser(_user.userID!);
+        } else {
+          await _firebaseAuthService.signOut();
+          return null;
+        }
       } else
         return null;
     }
@@ -127,11 +140,32 @@ class UserRepository implements AuthBase {
     }
   }
 
-  Future<bool> saveMessage(Mesaj kaydedilecekMesaj) async {
+  Future<bool> saveMessage(Mesaj kaydedilecekMesaj, User1 currentUser) async {
     if (appMode == AppMode.DEBUG) {
       return true;
     } else {
-      return _fireStoreDBService.saveMessage(kaydedilecekMesaj);
+      var dbYazmaIslemi =
+          await _fireStoreDBService.saveMessage(kaydedilecekMesaj);
+
+      if (dbYazmaIslemi) {
+        var token = '';
+
+        if (kullaniciToken.containsKey(kaydedilecekMesaj.kime)) {
+          token = kullaniciToken[kaydedilecekMesaj.kime]!;
+          print("LOCALDEN GELDİ  : " + token);
+        } else {
+          token = await _fireStoreDBService.tokenGetir(kaydedilecekMesaj.kime);
+          if (token != null) kullaniciToken[kaydedilecekMesaj.kime] = token;
+          print("VERİ TABANINDAN GELDİ  : " + token);
+        }
+
+        if (token != null)
+          await _bildirimGondermeServis.bildirimGonder(
+              kaydedilecekMesaj, currentUser, token);
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
