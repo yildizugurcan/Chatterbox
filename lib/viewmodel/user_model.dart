@@ -35,7 +35,9 @@ class UserModel with ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       _user = (await _userRepository.currentUser())!;
+      if(_user != null)
       return _user;
+      else return null;
     } catch (e) {
       return null;
     } finally {
@@ -75,7 +77,9 @@ class UserModel with ChangeNotifier implements AuthBase {
     try {
       state = ViewState.Busy;
       _user = await _userRepository.signInWithGoogle();
+      if(_user != null)
       return _user;
+      else return null;
     } catch (e) {
       return null;
     } finally {

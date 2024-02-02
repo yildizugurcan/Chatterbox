@@ -9,18 +9,14 @@ class FireStoreDBService implements DBBase {
 
   @override
   Future<bool> saveUser(User1 user) async {
-    await _firebaseDB.collection('users').doc(user.userID).set(user.toMap());
-
     DocumentSnapshot _okunanUser =
         await FirebaseFirestore.instance.doc('users/${user.userID}').get();
 
-    Map<String, dynamic>? _okunanUserBilgileriMap =
-        _okunanUser.data() as Map<String, dynamic>?;
-
-    if (_okunanUserBilgileriMap != null) {
+    if (_okunanUser.data() == null) {
+      await _firebaseDB.collection('users').doc(user.userID).set(user.toMap());
       return true;
     } else {
-      return false;
+      return true;
     }
   }
 
@@ -189,7 +185,7 @@ class FireStoreDBService implements DBBase {
     }
     for (DocumentSnapshot snap in _querySnapshot.docs) {
       User1 _tekUser = User1.fromMap(snap.data() as Map<String, dynamic>);
-      _tumKullanicilar!.add(_tekUser);
+      _tumKullanicilar.add(_tekUser);
     }
     return _tumKullanicilar;
   }
@@ -228,5 +224,17 @@ class FireStoreDBService implements DBBase {
       _tumMesajlar.add(_tekMesaj);
     }
     return _tumMesajlar;
+  }
+
+  Future<String> tokenGetir(String kime) async {
+    DocumentSnapshot _token = await _firebaseDB.doc('tokens/' + kime).get();
+
+    Map<String, dynamic>? tokenData = _token.data() as Map<String, dynamic>?;
+
+    if (tokenData != null) {
+      return tokenData["token"];
+    } else {
+      return "VarsayılanToken";
+    }
   }
 }

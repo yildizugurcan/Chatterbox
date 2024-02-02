@@ -114,7 +114,8 @@ class _SohbetPageState extends State<SohbetPage> {
                     bendenMi: true,
                     mesaj: _mesajController.text,
                   );
-                  var sonuc = await _chatModel.saveMessage(_kaydedilecekMesaj);
+                  var sonuc = await _chatModel.saveMessage(
+                      _kaydedilecekMesaj, _chatModel.currentUser!);
                   if (sonuc) {
                     _mesajController.clear();
                     _scrollController.animateTo(0.0,
