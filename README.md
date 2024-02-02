@@ -6,6 +6,7 @@
  - Profil fotoğrafı ve kendi kullanıcı adlarını değiştirebilirsiniz.
  - Kullanıcılarda aynı username iki kez görüntülenemez. Eğer o isimde birisi varsa uygulama değiştirmenizi ister.
  - Dilediğiniz kişiyle karşılıklı doyasıya sohbet edebilirsiniz.
+ - Uygulamayı kullanırken anlık bildirimler aktiftir veya uygulama kapalı olması halinde dahi bildirim aktiftir.
 
    
 
