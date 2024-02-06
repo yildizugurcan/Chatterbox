@@ -22,8 +22,12 @@
           }
         },
         {
-          "client_id": "242740362308-v7db4emnesdkc9ikp267ov8t38mfg0u5.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "242740362308-ubc656hnsd9apqp30q7su2l7u7veho02.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_lovers",
+            "certificate_hash": "73e922a185371fd3fe8296a62d6e3c68dea80a10"
+          }
         }
       ],
       "api_key": [
@@ -35,7 +39,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "242740362308-v7db4emnesdkc9ikp267ov8t38mfg0u5.apps.googleusercontent.com",
+              "client_id": "242740362308-v55li13ksqgdpda5u5a2dui6mf83scf3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
